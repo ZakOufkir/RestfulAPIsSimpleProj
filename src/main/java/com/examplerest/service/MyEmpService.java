@@ -75,7 +75,7 @@ public class MyEmpService {
 	//Find the three highest Hourly Employees
 	public List<HourlyEmployee> getThreeHighestHourlyEmp() {
 		List<HourlyEmployee> listOfSalEmp = hourlyEmpRepo.findAll();
-		List<HourlyEmployee> empl = (List<HourlyEmployee>) listOfSalEmp.stream().sorted(Comparator.comparingDouble(HourlyEmployee::getPayment)).collect(Collectors.toList());
+		List<HourlyEmployee> empl = listOfSalEmp.stream().sorted(Comparator.comparingDouble(HourlyEmployee::getPayment)).collect(Collectors.toList());
 
 		return empl;
 	}

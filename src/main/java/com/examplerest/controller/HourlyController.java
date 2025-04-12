@@ -1,7 +1,7 @@
 package com.examplerest.controller;
 
-import com.examplerest.service.MyEmpService;
-import jakarta.persistence.Transient;
+import com.examplerest.exception.IllegalArgumentsException;
+import com.examplerest.service.HourlyEmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.examplerest.entities.HourlyEmployee;
@@ -14,7 +14,7 @@ import java.util.List;
 public class HourlyController {
 
 	@Autowired
-	private MyEmpService employeeSvc;
+	private HourlyEmpService employeeSvc;
 
 
 	
@@ -39,4 +39,13 @@ public class HourlyController {
 	public List<HourlyEmployee> getTheThreeHighestEmployee(){
 		return employeeSvc.getThreeHighestHourlyEmp();
 	}
+	@GetMapping("{id}")
+	public HourlyEmployee getHourlyEmpById(@PathVariable Long id){
+		//Prelimienary verification
+		if (id<0)
+			throw new IllegalArgumentsException("Illegal Argument Exception. Id :"+id+" is not Valid.");
+		else
+			return employeeSvc.getTheHourEmpById(id);
+	}
+
 }

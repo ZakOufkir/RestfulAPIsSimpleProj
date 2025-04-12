@@ -3,8 +3,8 @@ package com.examplerest.controller;
 import java.util.List;
 
 import com.examplerest.entities.SalariedEmployee;
-import com.examplerest.service.MyEmpService;
-import jakarta.persistence.Transient;
+import com.examplerest.service.HourlyEmpService;
+import com.examplerest.service.SalariedEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SalariedController {
 
     @Autowired
-    MyEmpService employeeSvc;
+    SalariedEmployeeService employeeSvc;
 
     @PostMapping("/save")
     public String saveSalariedEmp(@RequestBody SalariedEmployee salarEm) {

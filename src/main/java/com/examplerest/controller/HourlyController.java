@@ -3,6 +3,7 @@ package com.examplerest.controller;
 import com.examplerest.exception.IllegalArgumentsException;
 import com.examplerest.service.HourlyEmpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.examplerest.entities.HourlyEmployee;
 
@@ -19,7 +20,7 @@ public class HourlyController {
 
 	
 	@PostMapping("/save")
-	public String saveHourlyEmp(@RequestBody HourlyEmployee hourlemp) {
+	public ResponseEntity<HourlyEmployee> saveHourlyEmp(@RequestBody HourlyEmployee hourlemp) {
 		HourlyEmployee hem = new HourlyEmployee();
 		hem.setHourlyWorked(hourlemp.getHourlyWorked());
 		hem.setHoursWorked(hourlemp.getHoursWorked());

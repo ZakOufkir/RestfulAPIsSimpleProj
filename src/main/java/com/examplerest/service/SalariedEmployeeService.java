@@ -5,6 +5,8 @@ import com.examplerest.entities.SalariedEmployee;
 import com.examplerest.exception.ResourceNotFoundException;
 import com.examplerest.salariedemprepo.SalariedEmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -34,10 +36,10 @@ public class SalariedEmployeeService {
     }
 
 
-    public String saveSlariedEmp(SalariedEmployee salarEm) {
+    public ResponseEntity<SalariedEmployee> saveSlariedEmp(SalariedEmployee salarEm) {
         // TODO Auto-generated method stub
-        return salariedmployeeRepo.save(salarEm).toString()+" . Successfully saved";
-
+        SalariedEmployee salEmp = salariedmployeeRepo.save(salarEm);
+            return ResponseEntity.status(HttpStatus.CREATED).body(salEmp);
     }
 
     public List<SalariedEmployee> getSalariedEmpList() {

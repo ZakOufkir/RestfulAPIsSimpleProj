@@ -6,6 +6,7 @@ import com.examplerest.entities.SalariedEmployee;
 import com.examplerest.service.HourlyEmpService;
 import com.examplerest.service.SalariedEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class SalariedController {
     SalariedEmployeeService employeeSvc;
 
     @PostMapping("/save")
-    public String saveSalariedEmp(@RequestBody SalariedEmployee salarEm) {
+    public ResponseEntity<SalariedEmployee> saveSalariedEmp(@RequestBody SalariedEmployee salarEm) {
 
         return employeeSvc.saveSlariedEmp(salarEm);
     }

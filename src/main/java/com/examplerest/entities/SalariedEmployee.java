@@ -2,11 +2,7 @@ package com.examplerest.entities;
 
 import java.util.List;
 
-import com.examplerest.service.MyEmpService;
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 
 
 @Entity

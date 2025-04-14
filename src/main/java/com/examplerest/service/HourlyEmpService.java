@@ -5,6 +5,8 @@ import com.examplerest.entities.SalariedEmployee;
 import com.examplerest.exception.ResourceNotFoundException;
 import com.examplerest.hourlyemprepo.HourlyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -30,10 +32,10 @@ public class HourlyEmpService {
 			return null;
 	}
 
-	public String saveHourlyEmp(HourlyEmployee hourlemp) {
+	public ResponseEntity<HourlyEmployee> saveHourlyEmp(HourlyEmployee hourlemp) {
 		
-		 hourlyEmpRepo.save(hourlemp);
-		 return "Success ";
+		HourlyEmployee savedHourly= hourlyEmpRepo.save(hourlemp);
+		 return ResponseEntity.status(HttpStatus.CREATED).body(savedHourly);
 		
 	}
 

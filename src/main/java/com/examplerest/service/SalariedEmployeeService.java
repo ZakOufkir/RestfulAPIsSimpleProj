@@ -2,6 +2,7 @@ package com.examplerest.service;
 
 import com.examplerest.entities.Employee;
 import com.examplerest.entities.SalariedEmployee;
+import com.examplerest.exception.IllegalArgumentsException;
 import com.examplerest.exception.ResourceNotFoundException;
 import com.examplerest.salariedemprepo.SalariedEmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import javax.swing.text.html.Option;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,6 +54,16 @@ public class SalariedEmployeeService {
             return salarieEmp.get();
         else
             throw new ResourceNotFoundException("Resource with id : "+id+ " is Not found");
+
+    }
+
+    public SalariedEmployee  getRichestSalariedEmp() throws Exception {
+        List<SalariedEmployee> allSalaried = salariedmployeeRepo.findAll();
+            if (allSalaried.size()>2) {
+                Optional<SalariedEmployee> salaEm = allSalaried.stream().max(Comparator.comparingDouble(SalariedEmployee::getSalary));
+                return salaEm.get();
+            }else
+                throw new IllegalArgumentsException("Can't do highest salary on salaried Employees :");
 
     }
 }

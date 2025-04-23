@@ -1,6 +1,7 @@
 package com.examplerest.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.examplerest.entities.SalariedEmployee;
 import com.examplerest.service.HourlyEmpService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/slaried")
+@RequestMapping("/api/salaried")
 public class SalariedController {
 
     @Autowired
@@ -36,5 +37,10 @@ public class SalariedController {
     @GetMapping("/{id}")
     public SalariedEmployee getSalariedById(@PathVariable Long id) {
         return employeeSvc.findSalarEmpById(id);
+    }
+
+    @GetMapping("/richSalaried")
+    public SalariedEmployee getHighestPaidSalariedEmp() throws Exception {
+        return employeeSvc.getRichestSalariedEmp();
     }
 }

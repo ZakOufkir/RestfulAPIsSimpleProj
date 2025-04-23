@@ -48,5 +48,9 @@ public class HourlyController {
 		else
 			return employeeSvc.getTheHourEmpById(id);
 	}
+	@DeleteMapping("/delete/{i}")
+	public void deleteHourlyEmp (@PathVariable Long id){
+		employeeSvc.deleteHourlById(id);
+	}
 
 }

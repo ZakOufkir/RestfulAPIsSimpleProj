@@ -1,9 +1,9 @@
 package com.examplerest.service;
 
 import com.examplerest.entities.HourlyEmployee;
-import com.examplerest.entities.SalariedEmployee;
 import com.examplerest.exception.ResourceNotFoundException;
 import com.examplerest.hourlyemprepo.HourlyRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +54,7 @@ public class HourlyEmpService {
 
 	public HourlyEmployee getTheHourEmpById(Long id) {
 
+
 		Optional<HourlyEmployee> hremp = hourlyEmpRepo.findById(id);
 		if (hremp.isPresent())
 			return hremp.get();
@@ -63,4 +64,8 @@ public class HourlyEmpService {
 	}
 
 
+	public void deleteHourlById(Long id) {
+		hourlyEmpRepo.deleteById(id);
+
+	}
 }

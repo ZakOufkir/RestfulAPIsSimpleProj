@@ -7,7 +7,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.hibernate5.HibernateOperations;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.Comparator;
 import java.util.List;
@@ -44,7 +46,7 @@ public class HourlyEmpService {
 	public List<HourlyEmployee> getThreeHighestHourlyEmp() {
 		List<HourlyEmployee> listOfSalEmp = hourlyEmpRepo.findAll();
 		List<HourlyEmployee> empl = listOfSalEmp.stream().sorted(Comparator.comparingDouble(HourlyEmployee::getPayment)).
-				limit(3).collect(Collectors.toUnmodifiableList());
+				limit(3).collect(Collectors.toList());
 		if (empl!=null)
 			return empl;
 		else
@@ -54,18 +56,27 @@ public class HourlyEmpService {
 
 	public HourlyEmployee getTheHourEmpById(Long id) {
 
-
-		Optional<HourlyEmployee> hremp = hourlyEmpRepo.findById(id);
-		if (hremp.isPresent())
-			return hremp.get();
-		else
-			throw new ResourceNotFoundException("Resource with Id: "+id+ " is Not Found");
+		return  hourlyEmpRepo.findById(id).orElseThrow(()->
+			 new ResourceNotFoundException("Resource with Id: " + id + " is Not Found"));
 
 	}
 
 
-	public void deleteHourlById(Long id) {
-		hourlyEmpRepo.deleteById(id);
 
+	public ResponseEntity<Void> deleteHourlById(Long id) {
+		hourlyEmpRepo.deleteById(id);
+		return ResponseEntity.noContent().build();//204 no content
+
+	}
+
+	public HourlyEmployee updateHourlyEmp(Long id, HourlyEmployee hourlyEmployee) {
+		Optional<HourlyEmployee> hremp = hourlyEmpRepo.findById(id);
+		if (hremp.isPresent()){
+			hremp.get().setDepartment(hourlyEmployee.getDepartment());
+			hremp.get().setHourlyWorked(hourlyEmployee.getHourlyWorked());
+			hremp.get().setName(hourlyEmployee.getName());
+			return  hourlyEmpRepo.save(hremp.get());
+		}else
+			throw new ResourceNotFoundException("Entity with id :"+id+" is not found .");
 	}
 }

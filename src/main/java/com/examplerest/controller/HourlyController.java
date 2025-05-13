@@ -26,7 +26,7 @@ public class HourlyController {
 		hem.setHoursWorked(hourlemp.getHoursWorked());
 		hem.setName(hourlemp.getName());
 		hem.setType(hourlemp.getType());
-		hem.setType(hourlemp.getDepartment());
+		hem.setDepartment(hourlemp.getDepartment());
 		
 		return employeeSvc.saveHourlyEmp(hourlemp);
 	}
@@ -40,17 +40,25 @@ public class HourlyController {
 	public List<HourlyEmployee> getTheThreeHighestEmployee(){
 		return employeeSvc.getThreeHighestHourlyEmp();
 	}
-	@GetMapping("{id}")
-	public HourlyEmployee getHourlyEmpById(@PathVariable Long id){
+
+	@GetMapping("/{id}")
+	public ResponseEntity<HourlyEmployee> getHourlyEmpById(@PathVariable Long id){
 		//Prelimienary verification
 		if (id<0)
 			throw new IllegalArgumentsException("Illegal Argument Exception. Id :"+id+" is not Valid.");
 		else
-			return employeeSvc.getTheHourEmpById(id);
+			return ResponseEntity.ok(employeeSvc.getTheHourEmpById(id));
 	}
 	@DeleteMapping("/delete/{i}")
-	public void deleteHourlyEmp (@PathVariable Long id){
-		employeeSvc.deleteHourlById(id);
+	public ResponseEntity<Void> deleteHourlyEmp (@PathVariable Long id){
+		return employeeSvc.deleteHourlById(id);
+
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<HourlyEmployee> updateHourlyEmp(@PathVariable Long id, @RequestBody HourlyEmployee hourlyEmployee){
+		HourlyEmployee hremp = employeeSvc.updateHourlyEmp(id, hourlyEmployee);
+		return ResponseEntity.ok(hremp);
 	}
 
 }

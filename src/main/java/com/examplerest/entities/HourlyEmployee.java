@@ -30,10 +30,8 @@ public final class HourlyEmployee extends Employee {
 		return hourlyWorked*hoursWorked;
 	}
 
-	@Override
-	public List<Employee> getThreeHighestPaid() {
-		return List.of();
-	}
+
+
 
 	public double getHourlyWorked() {
 		return hourlyWorked;
@@ -50,4 +48,5 @@ public final class HourlyEmployee extends Employee {
 	public void setHoursWorked(double hoursWorked) {
 		this.hoursWorked = hoursWorked;
 	}
+
 }

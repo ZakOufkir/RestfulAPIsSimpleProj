@@ -31,10 +31,7 @@ public final class SalariedEmployee extends Employee {
 		return salary+annualBonus;
 	}
 
-	@Override
-	public List<Employee> getThreeHighestPaid() {
-		return List.of();
-	}
+
 
 	public double getSalary() {
 		return salary;

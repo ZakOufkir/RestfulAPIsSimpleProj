@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String,Object> >handleNotFound(ResourceNotFoundException ex){
         Map<String,Object> error = new HashMap<>();
+        error.put("timestamp", LocalDateTime.now());
         error.put("error","Not Found");
         error.put("message",ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
@@ -23,6 +25,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentsException.class)
     public ResponseEntity<Map<String,Object>> handleBadRequest(IllegalArgumentsException ex){
         Map<String,Object> error = new HashMap<>();
+        error.put("timestamp", LocalDateTime.now());
         error.put("error","Invalid Request");
         error.put("message",ex.getMessage());
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);

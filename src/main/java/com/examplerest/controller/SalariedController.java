@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.examplerest.entities.SalariedEmployee;
+import com.examplerest.exception.ResourceNotFoundException;
 import com.examplerest.service.HourlyEmpService;
 import com.examplerest.service.SalariedEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,12 @@ public class SalariedController {
 
     @GetMapping("/{id}")
     public SalariedEmployee getSalariedById(@PathVariable Long id) {
-        return employeeSvc.findSalarEmpById(id);
+        SalariedEmployee em = employeeSvc.findSalarEmpById(id);
+        if (em !=null) {
+            return em;
+
+        }else
+            throw new ResourceNotFoundException("No Salaried Employee with that Id was found !");
     }
 
     @GetMapping("/richSalaried")

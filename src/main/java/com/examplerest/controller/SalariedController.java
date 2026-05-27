@@ -37,12 +37,8 @@ public class SalariedController {
 
     @GetMapping("/{id}")
     public SalariedEmployee getSalariedById(@PathVariable Long id) {
-        SalariedEmployee em = employeeSvc.findSalarEmpById(id);
-        if (em !=null) {
-            return em;
+      return employeeSvc.findSalarEmpById(id);
 
-        }else
-            throw new ResourceNotFoundException("No Salaried Employee with that Id was found !");
     }
 
     @GetMapping("/richSalaried")
